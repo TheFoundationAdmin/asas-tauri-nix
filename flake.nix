@@ -1,5 +1,5 @@
 {
-  description = "A.S.A.S. / M.A.R.I.A. desktop client -- packages the prebuilt Linux release from asas.archiqueer.com";
+  description = "OVERDRIVE desktop client -- packages the prebuilt Linux release from asas.archiqueer.com";
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -11,11 +11,11 @@
       # version.json = { version, url, hash } -- rewritten by ./update.sh
       rel = builtins.fromJSON (builtins.readFile ./version.json);
 
-      pname = "asas";
+      pname = "overdrive";
       src = pkgs.fetchurl { inherit (rel) url hash; };
       contents = pkgs.appimageTools.extract { inherit pname src; version = rel.version; };
 
-      asas = pkgs.appimageTools.wrapType2 {
+      overdrive = pkgs.appimageTools.wrapType2 {
         inherit pname src;
         version = rel.version;
 
@@ -33,14 +33,14 @@
         '';
 
         meta = {
-          description = "A.S.A.S. desktop client";
+          description = "OVERDRIVE desktop client";
           homepage = "https://asas.archiqueer.com/install";
           platforms = [ system ];
           mainProgram = pname;
         };
       };
     in {
-      packages.${system} = { default = asas; asas = asas; };
-      apps.${system}.default = { type = "app"; program = "${asas}/bin/${pname}"; };
+      packages.${system} = { default = overdrive; overdrive = overdrive; };
+      apps.${system}.default = { type = "app"; program = "${overdrive}/bin/${pname}"; };
     };
 }
